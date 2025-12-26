@@ -20,8 +20,8 @@ The bot understands requests as if it were communicating with a real person, rat
 
 ### Installation and launch
 ```bash
-git clone https://github.com/yourusername/foodspot-api.git
-cd foodspot-api
+git clone https://github.com/unknxwnwxrld/hangouthunter-api.git
+cd hangouthunter-api
 cp .env.example .env  # fill in GEMINI_API_KEY and other variables
 pip install -r requirements.txt
 uvicorn app.main:app --reload
