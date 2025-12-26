@@ -1,27 +1,75 @@
-# 🍴 HangoutHunter API – Smart backend for finding establishments
+# 🔍 HangoutHunter API
 
-A FastAPI service that acts as a backend for a Telegram bot that searches for restaurants, cafes, bars, street food, and other catering establishments.
+**Intelligent backend for discovering atmospheric venues**  
+A FastAPI service that understands natural language queries in Russian (and English), using Google Gemini to recommend 10–20 real restaurants, cafes, bars, and other spots — focusing on unique, high-rated places while avoiding tourist traps and large chains.
 
-### Key features
-- Accepts natural user queries in English, Russian or Ukrainian languages (for example: “Where can I eat sushi in the city center without spending a lot?” or “A cool bar with live music near the metro station”).
-- Processing requests using **Google Gemini** (a neural network analyzes the intent and extracts parameters: type of establishment, cuisine, budget, area, atmosphere, etc.).
-- Return a structured list of suitable establishments with photos, ratings, addresses, links, and a brief justification for the selection.
-- Ready-made API for easy connection to a Telegram bot (webhook or polling).
+Perfect as a backend for a Telegram bot (@HangoutHunterBot or similar).
 
-### Technologies
-- **FastAPI** — a fast and modern framework
-- **Google Gemini API** — powerful natural language processing
-- **Pydantic** — data validation and serialization
-- **Uvicorn** — ASGI server
-- Docker support (in development)
+### ✨ Features
+- 🧠 Natural language query processing powered by Google Gemini  
+- 🌍 Support for any location  
+- 🌐 Responses in any langiage
+- 🎯 Emphasis on unique concepts, great atmosphere, and high-quality experiences  
+- 🚫 Strict prompt engineering to recommend only real, existing venues  
+- 📊 Request and response validation with Pydantic  
 
-### Why this project?
-The bot understands requests as if it were communicating with a real person, rather than forcing you to choose from rigid filters. Ideal for those who are tired of template-based search engines for establishments.
+### 🚀 Quick Start
 
-### Installation and launch
 ```bash
 git clone https://github.com/unknxwnwxrld/hangouthunter-api.git
 cd hangouthunter-api
-cp .env.example .env  # fill in GEMINI_API_KEY and other variables
+
+cp .env.example .env  # ← add your GEMINI_API_KEY
+
 pip install -r requirements.txt
+
 uvicorn app.main:app --reload
+```
+The API will be available at: http://127.0.0.1:8000<br>
+Interactive docs: http://127.0.0.1:8000/docs (Swagger UI) • http://127.0.0.1:8000/redoc
+
+### 📸 Usage Examples
+#### Request
+```bash
+curl -X POST http://127.0.0.1:8000/recommend \
+  -H "Content-Type: application/json" \
+  -d '{
+    "city": "Moscow",
+    "criteria": "cozy cafe with vegetarian menu and great coffee in the city center",
+    "lang": "english"
+  }'
+```
+
+#### Response (excerpt)
+```json
+{
+  "venues": [
+    {
+      "name": "Coffee and Books",
+      "cuisine": "vegetarian, coffee & desserts",
+      "why_visit": "A cozy spot with bookshelves, live plants, and signature egg-free, milk-free desserts.",
+      "address_hint": "Tverskaya Street, near Mayakovskaya metro"
+    },
+    ...
+  ]
+}
+```
+### 🛠 Tech Stack
+![Python](https://img.shields.io/badge/Python-3.11+-blue)
+![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-green)
+![Google Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-orange)
+![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-lightgrey)
+
+### 🔜 Roadmap
+- Docker + docker-compose support
+- Response caching (Redis)
+- Rate limiting and abuse protection
+- Integration with Google Places / 2GIS API for photos and up-to-date links
+- Tests and CI/CD pipeline
+
+### 🤝 Contributing
+Contributions are welcome! Feel free to open issues and pull requests.
+
+### 📄 License
+MIT © unknxwnwxrld<br>
+⭐ If you find this project useful — give it a star!
