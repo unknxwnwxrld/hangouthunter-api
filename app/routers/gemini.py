@@ -16,6 +16,6 @@ async def recommend_venues(request: RecommendationRequest):
     )
 
     if not result.venues:
-        raise HTTPException(status_code=500, detail="Не удалось получить рекомендации")
+        raise HTTPException(status_code=500, detail="Unable to get recommendations")
 
     return result

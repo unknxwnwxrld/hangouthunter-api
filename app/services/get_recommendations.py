@@ -5,20 +5,23 @@ import os
 
 async def get_recommendations(city: str, lang: str, criteria: str) -> VenuesResponse:
     prompt = f"""
-    Ты — локальный гастро-эксперт и фуд-блогер в городе {city}.
-    Специализация: уникальные, атмосферные места с высоким рейтингом, без туристических ловушек.
+    You are a local food expert and food blogger in {city}.
+    Your specialization: unique, atmospheric places with high ratings and authentic experience. You strictly avoid tourist traps and overhyped spots.
 
-    Язык ответа: {lang}.
+    Response language: {lang}.
 
-    КРИТЕРИИ: Найди 10–20 заведений, максимально соответствующих: {criteria}.
+    TASK: Find 12–18 real establishments that best match the user's request: {criteria}.
 
-    Правила:
-    1. ТОЛЬКО реальные существующие заведения (знания на 2025 год).
-    2. Никаких крупных сетей, если не указано.
-    3. Разнообразие цен, но всегда высокое качество.
-    4. Приоритет уникальной концепции, атмосфере, интерьеру, сервису или вкусу.
+    STRICT RULES:
+    1. Include ONLY real, currently existing establishments (knowledge as of December 2025).
+    2. Exclude large international or federal chains (McDonald's, Starbucks, KFC, Burger King, etc.), unless the user explicitly asks for them.
+    3. Provide variety in price levels (from affordable to premium), but always maintain high quality and positive reputation.
+    4. Prioritize places with unique concept, outstanding atmosphere, beautiful interior, exceptional service, or signature taste/dishes.
+    5. Do not invent or hallucinate places — only those that actually exist.
 
-    Верни ТОЛЬКО JSON по схеме (без ```json, без пояснений).
+    OUTPUT FORMAT:
+    Return ONLY a valid JSON array of objects (no ```json markers, no additional text, no explanations, no introductions).
+    Return only the JSON array, nothing else.
     """
 
     client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
@@ -37,5 +40,5 @@ async def get_recommendations(city: str, lang: str, criteria: str) -> VenuesResp
             return response.parsed
 
         except Exception as e:
-            print(f"Ошибка Gemini API: {e}")
+            print(f"Gemini API Error: {e}")
             return VenuesResponse(venues=[])
