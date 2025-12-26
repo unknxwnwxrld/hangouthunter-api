@@ -60,6 +60,10 @@ curl -X POST http://127.0.0.1:8000/recommend \
 ![Google Gemini](https://img.shields.io/badge/Gemini-2.5%20Flash-orange)
 ![Uvicorn](https://img.shields.io/badge/Uvicorn-ASGI-lightgrey)
 
+### 🤖 Live Telegram Bot
+This API directly powers the live Telegram bot [@HangoutHunterBot](https://t.me/HangoutHunterBot), where users can discover unique and atmospheric venues using simple natural language queries right in the chat.<br>
+The full source code for the bot is available here: [hangouthunter-telegram-bot](https://github.com/unknxwnwxrld/hangouthunter-telegram-bot).
+
 ### 🔜 Roadmap
 - Docker + docker-compose support
 - Response caching (Redis)
